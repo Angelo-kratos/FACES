@@ -26,30 +26,30 @@ if opened:
             cv.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1)
             img_croped = frame[y-100:y+h+100,x-100:x+w+100]   #couper la partie du visage
             cv.imshow("img", img_croped)
-            cv.imwrite("Cap3.jpg",img_croped)
-
-
-        image1 = face_recognition.load_image_file("/home/kratos/Documents/opencv/andry.jpg")  #load file vient du capturer( file model)
-       # Encodage et detection de la partie du visage
-        face_loc1 = face_recognition.face_locations(image1)[0]
-        face_encoded1 = face_recognition.face_encodings(image1)[0]
-
-        image2 = face_recognition.load_image_file("/home/kratos/Documents/opencv/andry1.jpeg") #load file capturel en temps reel
-       # Encodage et detection de la partie du visage
-        face_loc2  = face_recognition.face_locations(image2)[0]
-        face_encoded2 = face_recognition.face_encodings(image2)[0]
-        
-        
-        result =face_recognition.compare_faces([face_encoded1],face_encoded2)
-        face_dist = face_recognition.face_distance([face_encoded1],face_encoded2)
-        print(result,face_dist)
+            cv.imwrite("Cap.jpg",img_croped)
 
 
         cv.putText(frame,str(f'FPS:{timeTotal}'),(5,15),cv.FONT_HERSHEY_COMPLEX_SMALL,1,(0,255,0),2)#Afficher FPS
         cv.imshow("Videos", frame)
+
         keystore = cv.waitKey(1)
         if keystore == 27:
+            image1 = face_recognition.load_image_file("/home/kratos/Documents/opencv/andry.jpg")  # load file vient du capturer( file model)
+            # Encodage et detection de la partie du visage
+            face_loc1 = face_recognition.face_locations(image1)[0]
+            face_encoded1 = face_recognition.face_encodings(image1)[0]
+
+            image2 = face_recognition.load_image_file(
+                "/home/kratos/Documents/opencv/Cap3.jpg")  # load file capturel en temps reel
+            # Encodage et detection de la partie du visage
+            face_loc2 = face_recognition.face_locations(image2)[0]
+            face_encoded2 = face_recognition.face_encodings(image2)[0]
+
+            result = face_recognition.compare_faces([face_encoded1], face_encoded2)
+            face_dist = face_recognition.face_distance([face_encoded1], face_encoded2)
+            print(result, face_dist)
             break
+
 
 picture.release()
 cv.destroyAllWindows()
